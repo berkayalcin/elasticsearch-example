@@ -1,5 +1,8 @@
 ﻿namespace ElasticSearch_Example_Project.Services.Dto
 {
+    /// <summary>
+    /// Product Overview Model
+    /// </summary>
     public class ProductOverviewModel
     {
         public int Id { get; set; }

@@ -24,13 +24,17 @@ namespace ElasticSearch_Example_Project.Controllers
 
         public IActionResult Index()
         {
-            _productService.SaveProduct(new Product()
-            {
-                Description = "Samsung Galaxy S6",
-                Price = 3100,
-                Title = "Samsung Galaxy S6 2010"
-            });
             return View();
+        }
+
+        /// <summary>
+        /// Searches Product Documents
+        /// </summary>
+        /// <param name="query">Search query</param>
+        /// <returns></returns>
+        public async Task<IActionResult> Search(string query)
+        {
+            return Ok(await _productService.Search(query));
         }
 
         public IActionResult Privacy()

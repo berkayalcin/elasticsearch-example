@@ -7,10 +7,11 @@ using Nest;
 
 namespace ElasticSearch_Example_Project.Services
 {
+    /// <inheritdoc cref="IProductService"/>
     public class ProductService : IProductService
     {
         private readonly IElasticClient _elasticClient;
-        private static List<Product> _products=new List<Product>()
+        private static readonly List<Product> _products = new List<Product>()
         {
             new Product(){Id = 1,Price = 10,Title = "Iphone 5",Description = "Iphone 5 Mobile Phone"},
             new Product(){Id = 2,Price = 15,Title = "Iphone 6",Description = "Iphone 6 Mobile Phone"},
@@ -31,45 +32,58 @@ namespace ElasticSearch_Example_Project.Services
             new Product(){Id = 17,Price = 1110,Title = "Iphone 12",Description = "Iphone 12 Mobile Phone"},
         };
 
+        /// <summary>
+        /// Product Elastic Service
+        /// </summary>
+        /// <param name="elasticClient">Elastic Client</param>
         public ProductService(IElasticClient elasticClient)
         {
             _elasticClient = elasticClient;
         }
 
 
-        public async Task<List<ProductOverviewModel>> Search(string productName, double price)
+        public async Task<List<ProductOverviewModel>> Search(string searchQuery, double? price = null)
         {
+
+
             var searchResponse = _elasticClient.Search<Product>(search =>
-                  search.Query(query =>
-                      query.SimpleQueryString(c =>
-                          c.Boost(1.1)
+                  search
+                      .Query(query =>
+                      query.QueryString(c =>
+                          c
+                              .Boost(1.1)
                               .Fields(x => x.Field(fi => fi.Description))
-                              .Query(productName)
+                              .Query(searchQuery)
                               .Analyzer("standard")
                               .DefaultOperator(Operator.Or)
-                              .Flags(SimpleQueryStringFlags.And | SimpleQueryStringFlags.Near)
                               .Lenient()
                               .AnalyzeWildcard()
-                              .MinimumShouldMatch("30%")
+                              .MinimumShouldMatch("40%")
                               .FuzzyPrefixLength(0)
                               .FuzzyMaxExpansions(50)
                               .FuzzyTranspositions()
                               .AutoGenerateSynonymsPhraseQuery(false)
-                      )
-                  ).Query(query =>
-                     query.Range(r =>
-                         r.Field(fi =>
-                             fi.Price)
-                             .GreaterThanOrEquals(price)
-                         )
-                      )
-                      .Query(query =>
-                          query.Range(r =>
-                              r.Field(fi =>
-                                      fi.Price)
-                                  .LessThanOrEquals(price)
-                          )
-                      )
+                      ) ||
+                      query.QueryString(c =>
+                          c
+                              .Boost(1.1)
+                              .Fields(x => x.Field(fi => fi.Title))
+                              .Query(searchQuery)
+                              .Analyzer("standard")
+                              .DefaultOperator(Operator.Or)
+                              .Lenient()
+                              .AnalyzeWildcard()
+                              .MinimumShouldMatch("40%")
+                              .FuzzyPrefixLength(0)
+                              .FuzzyMaxExpansions(50)
+                              .FuzzyTranspositions()
+                              .AutoGenerateSynonymsPhraseQuery(false)
+                      ) ||
+                      query.Range(r =>
+                          r.Field(fi => fi.Price).GreaterThanOrEquals(price)) ||
+                      query.Range(r =>
+                          r.Field(fi => fi.Price).LessThanOrEquals(price))
+                    )
             );
             var products = searchResponse.Documents.ToList();
             return products.Select(t => new ProductOverviewModel()
