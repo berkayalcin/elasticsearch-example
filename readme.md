@@ -1,5 +1,6 @@
 
 
+
 ## Dockerized DotNetCore - Elasticsearch [![GitHub license](https://img.shields.io/github/license/berkayalcin/elasticsearch-example.svg)](LICENSE) 
 
 Example for Hosting Elasticsearch,Kibana and DotNet Core Project On Docker.
@@ -25,3 +26,8 @@ The elasticsearch-example is a **community-driven open source project**. I'm com
 
 ## 📘&nbsp; License
 The elasticsearch-example released under the under terms of the [MIT License](LICENSE).
+
+## Yay!
+<center>
+<img src="https://i.ibb.co/9ZHr4cS/Demo.png" alt="Yay!" border="0">
+</center>
