@@ -21,7 +21,7 @@ Example for Hosting Elasticsearch,Kibana and DotNet Core Project On Docker.
 
 ## ❤️&nbsp; Community and Contributions
 
-The elasticsearch-example is a **community-driven open source project**. We are committed to a fully transparent development process and **highly appreciate any contributions**. 
+The elasticsearch-example is a **community-driven open source project**. I'm committed to a fully transparent development process and **highly appreciate any contributions**. 
 
 ## 📘&nbsp; License
 The elasticsearch-example released under the under terms of the [MIT License](LICENSE).
