@@ -4,10 +4,6 @@
 
 Example for Hosting Elasticsearch,Kibana and DotNet Core Project On Docker.
 
-## Introduction
-
-
-
 ## Get Started
 
  - Elasticsearch and Kibana are started by running the docker-compose up
