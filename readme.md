@@ -4,9 +4,6 @@
 
 Example for Hosting Elasticsearch,Kibana and DotNet Core Project On Docker.
 
-## Introduction
-
-
 
 ## Get Started
 
