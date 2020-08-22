@@ -4,11 +4,17 @@
 
 Example for Hosting Elasticsearch,Kibana and DotNet Core Project On Docker.
 
+## Introduction
+
+
+
 ## Get Started
 
  - Elasticsearch and Kibana are started by running the docker-compose up
    command in the ElasticSearch-Example-Project folder of the project
 - Then you can run the project with IIS Express.
+
+**(Optional)** If you want to dockerize the Dotnet Core project, you must use the docker-compose file in the root directory.
 
 ## ✅&nbsp; Requirements
 
